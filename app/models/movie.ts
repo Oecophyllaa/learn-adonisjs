@@ -24,7 +24,7 @@ export default class Movie {
   }
 
   static async find(slug: string) {
-    if (cache.has(slug)) {
+    if (await cache.has(slug)) {
       console.log(`Cache Hit: ${slug}`)
       return cache.get(slug)
     }
@@ -36,7 +36,7 @@ export default class Movie {
     movie.slug = slug
     movie.abstract = toHtml(md).contents
 
-    cache.set(slug, movie)
+    await cache.set(slug, movie)
 
     return movie
   }
